@@ -1,8 +1,7 @@
 # vueBlog
 基于vue2.0+elementUI的后台管理系统，企业可拿来使用的后台管理框架
-##相关技术：
 
-
+相关技术：
   1.vuejs2.0：渐进式JavaScript框架，易用、灵活、高效，似乎任何规模的应用都适用。
   2.element：基于vuejs2.0的ui组件库。
   3.vue-router：一般单页面应用spa都要用到的前端路由。
