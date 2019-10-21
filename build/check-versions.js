@@ -27,7 +27,7 @@ if (shell.which('npm')) {
 
 module.exports = function () {
   const warnings = []
-
+ //依次判断版本是否符合要求
   for (let i = 0; i < versionRequirements.length; i++) {
     const mod = versionRequirements[i]
 
@@ -41,6 +41,7 @@ module.exports = function () {
 
   if (warnings.length) {
     console.log('')
+      //如果有警告则将其输出到控制台
     console.log(chalk.yellow('To use this template, you must update following to modules:'))
     console.log()
 

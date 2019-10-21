@@ -7,8 +7,8 @@ const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')//一个 webpack 扩展，可以提取一些代码并且将它们和文件分离开,如果我们想将 webpack 打包成一个文件 css js 分离开，那我们需要这个插件
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')//一个个优化/最小化css资源的插件
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
