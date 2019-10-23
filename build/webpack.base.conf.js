@@ -26,7 +26,7 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     //编译文件入口
-    app: './src/main.js'
+    app: ["babel-polyfill", "./src/main.js"]
   },
   output: {
     //使用config/index.js 中build的assetsRoot作为输出的根路径
