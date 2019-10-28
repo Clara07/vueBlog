@@ -9,7 +9,7 @@
         </el-form-item>
         <el-checkbox v-model="checked" checked   class="remember">记住密码</el-checkbox>
         <el-form-item style="width: 100%;">
-            <el-button type="primary" style="width: 100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+            <el-button type="primary" style="width: 100%;"  @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -36,14 +36,14 @@
                         message:'请输入密码',
                         trigger:'blur'
                     }],
-                    checked:true
-                }
+                },
+                checked:true
             }
         },
         methods:{
             handleSubmit2(ev){
                 var _this = this;
-                this.$ref.ruleForm2.validate((valid)=>{
+                this.$refs.ruleForm2.validate((valid)=>{
                     if(valid){
                         this.logining = true;
                         var loginParams ={username:this.ruleForm2.account,password:this.ruleForm2.checkPass}
@@ -57,7 +57,7 @@
                                 });
                             }else{
                                 sessionStorage.setItem('user',JSON.stringify(user));
-                                //登录成功后跳转
+                                //登录成功后跳转checked
                                 this.$router.push({path:'/table'})
                             }
                         })

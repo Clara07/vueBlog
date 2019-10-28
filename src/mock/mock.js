@@ -28,13 +28,13 @@ export default {
                 let user = null;
                 setTimeout(()=>{
                     let hasUser = LoginUsers.some(u=>{
-                        if(u.name === username && u.password === password){
+                        if(u.username === username && u.password === password){
                             user = JSON.parse(JSON.stringify(u));
                             user.password = undefined ;
                             return true
                         }
                     });
-
+                    console.log(hasUser)
                     if(hasUser){
                         resolve([200,{code:200,msg:'登录成功',user}])
                     }else{
@@ -43,6 +43,7 @@ export default {
                 },1000)
             })
         })
+        //获取用户列表
 
 
 
