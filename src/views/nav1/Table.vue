@@ -101,7 +101,171 @@
     import{getUserListPage,removeUser,bathRemoveUser,editUser,addUser} from '../../api/api'
 
     export default {
-        name: "Table"
+        name: "Table",
+        data(){
+            return {
+                filter:{
+                    name:''
+                },
+                users:[],
+                total:0,
+                page:1,
+                listLoading:false,
+                sels:[],//列表选中列
+                editFormVisible:false,
+                editLoading:false,
+                editFormRules:{
+                    name:[{
+                        required:true,
+                        message:'请输入姓名',
+                        trigger:'blur'
+                    }]
+                },
+                //编辑界面数据
+                editForm:{
+                    id:0,
+                    name:'',
+                    sex:-1,
+                    age:0,
+                    birth:'',
+                    addr:''
+                },
+                addFormVisible:false,
+                addLoading:false,
+                addFormRules:{
+                    name:[{
+                        required:true,
+                        message:'请输入姓名',
+                        trigger:'blur'
+                    }]
+                },
+                addForm:{
+                    name:'',
+                    sex:-1,
+                    age:0,
+                    birth:'',
+                    addr:''
+                }
+            }
+        },
+        methods:{
+            //性别显示切换
+            formatSex:function(row,column){
+                return row.sex == 1 ?'男' : row.sex == 0 ? '女' :'未知'
+            },
+            handleCurrentChange:function(val){
+                this.page = val;
+                this.getUsers();
+            },
+            //获取用户列表
+            getUsers:function(){
+                let para = {
+                    page:this.page,
+                    name:this.filter.name
+                };
+                this.listLoading = true;
+                getUserListPage(para).then((res) => {
+                  this.total = res.data.total;
+                  this.users = res.data.users;
+                  this.listLoading = false;
+                })
+            },
+            //删除用户
+            handleDel:function(index,row){
+                this.$confirm('确认删除该记录吗?','提示',{
+                    type:'warining'
+                }).then(()=>{
+                    this.listLoading = true;
+                    let para = {id:row.id};
+                    removeUser(para).then((res)=>{
+                        this.listLoading = false;
+                        this.$message({
+                            message:'删除成功!',
+                            type:'success'
+                        })
+                    });
+                    this.getUsers();
+                }).catch(()=>{
+
+                })
+            },
+
+            //显示编辑界面
+            handleEdit:function(index,row){
+              this.editFormVisible = true;
+              this.editForm = Object.assign({},row)
+            },
+
+            //显示新增界面
+            handleAdd:function(){
+                this.addFormVisible = true;
+                this.addForm = {
+                    name:'',
+                    sex:-1,
+                    age:0,
+                    birth:'',
+                    addr:''
+                }
+            },
+
+            //编辑
+            editSubmit:function(){
+                this.$refs.editForm.validate((valid)=>{
+                    if(valid){
+                        this.$confirm('确认提交吗?','提示',{
+                            type:'waring'
+                        }).then(()=>{
+                            this.editLoading = true;
+                            let para = Object.assign({},this.editForm);
+                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate(new Date(para.birth),'yyyy-MM-dd');
+                            editUser(para).then((res)=>{
+                                this.editLoading = false;
+                                this.$message({
+                                    message:'提交成功',
+                                    type:'success'
+                                });
+                                this.$refs['editForm'].resetFields();
+                                this.editFormVisible = false;
+                                this.getUsers();
+                            })
+                        })
+                    }
+                })
+            },
+
+            //新增用户
+            addSubmit:function(){
+                this.$refs.addForm.validate((valid)=>{
+                    if(valid){
+                        this.$confirm('确认提交吗?','提示',{
+                            type:'warning'
+                        }).then(()=>{
+                            this.addLoading = true;
+                            let para = Object.assign({},this.addForm);
+                            para.birth = (!para.birth || para.birth == '') ?'' : util.formatDate.format(new Date(para.birth),'yyyy-MM-dd');
+                            addUser(para).then((res)=>{
+                                this.addLoading = false;
+                                this.$message({
+                                    message:'提交成功!',
+                                    type:'success'
+                                });
+                                this.$refs['addForm'].resetFields();
+                                this.addFormVisible = false;
+                                this.getUsers();
+                            })
+                        })
+                    }
+                })
+            },
+            selsChange:function(sels){
+                this.sels = sels;
+            },
+            bathRemove:function(){
+                var ids = this.sels.map(item => item.id).toString();
+                this.$confirm('确认删除')
+            }
+
+        },
     }
 </script>
 
