@@ -4,7 +4,7 @@ const LoginUsers=[
         id: 1,
         username: 'admin',
         password: '123456',
-        avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+        avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1572870567813&di=1e092da2d2875a24bcda7e849e3d9c1f&imgtype=0&src=http%3A%2F%2Fdingyue.nosdn.127.net%2FgxEcRxc8LHGJzkCZvHInfKXdM4NYzTS%3Dpykgd1pvAfPuR1535995251278.jpeg',
         name: '翟子路'
     }
 ]
